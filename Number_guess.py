@@ -38,7 +38,7 @@ if timer < min_times:
     min_times = timer
 total_times += timer
 result = "%d %d %d" % (game_times, min_times, total_times)
-record = open("record")
+record = open("record", "w")
 record.write(result)
 record.close()
 #存档
