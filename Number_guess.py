@@ -1,9 +1,11 @@
 #-*-coding:utf-8 -*-
+
 from random import randint
 
 record = open("record")
 score = record.read().split()
 record.close()
+#读取存档
 
 game_times = int(score[0])
 min_times = int(score[1])
@@ -12,9 +14,8 @@ if game_times > 0:
     avg_times = float(total_times)/game_times
 else:
     avg_times = 0
-
 print"你一共玩了%d次，最快用了%d轮，平均每局%.2f轮。" % (game_times, min_times, avg_times)
-
+#存档分析
 
 random_num = randint(1, 1000)
 print "在1到1000之间猜一个数字吧："
@@ -30,10 +31,14 @@ while guess != random_num:
     print "\n再试试？"
     guess = input(">>")
 print "BINGO！你用了%d猜到这个数字！" % timer
+#游戏主体
 
 game_times += 1
 if timer < min_times:
     min_times = timer
 total_times += timer
 result = "%d %d %d" % (game_times, min_times, total_times)
+record = open("record")
 record.write(result)
+record.close()
+#存档
