@@ -29,9 +29,9 @@ if score is None:
 game_times = int(score[0])
 min_times = int(score[1])
 total_times = int(score[2])
-used_time = int(score[3])
+min_time = int(score[3])
 avg_times = avg(total_times, game_times)
-print"你一共玩了%d次，最快用了%d轮，%d秒，平均每局%.2f轮。" % (game_times, min_times, used_time, avg_times)
+print"你一共玩了%d次，最快用了%d轮，%d秒，平均每局%.2f轮。" % (game_times, min_times, min_time, avg_times)
 # 存档分析
 
 random_num = randint(1, 1000)
@@ -51,7 +51,7 @@ while guess != random_num:
 
 timeEnd = time.time()
 used_time = timeEnd-timeStart
-print "BINGO！你用了%d轮,%d秒猜到这个数字！" % timer, used_time
+print "BINGO！你用了%d轮,%d秒猜到这个数字！" % (timer, used_time)
 
 # 游戏主体
 
@@ -60,8 +60,10 @@ total_times += timer
 if min_times == 0 or timer < min_times:
     min_times = timer
 avg_times = avg(total_times, game_times)
+if min_time == 0 or used_time < min_time:
+    min_time = used_time
 
-print"你一共玩了%d次，最快用了%d轮，%秒，平均每局%.2f轮。" % (game_times, min_times, used_time,  avg_times)
+print"你一共玩了%d次，最快用了%d轮，%d秒，平均每局%.2f轮。" % (game_times, min_times, used_time,  avg_times)
 
 scores[name] = [str(game_times), str(min_times), str(total_times), str(used_time)]
 result = ""
