@@ -1,6 +1,7 @@
 # -*-coding:utf-8 -*-
 
 from random import randint
+import time
 
 
 def avg(total, time):
@@ -23,17 +24,19 @@ for l in lines:
 
 score = scores.get(name)
 if score is None:
-    score = [0, 0, 0]
+    score = [0, 0, 0, 0]
 
 game_times = int(score[0])
 min_times = int(score[1])
 total_times = int(score[2])
+used_time = int(score[3])
 avg_times = avg(total_times, game_times)
-print"你一共玩了%d次，最快用了%d轮，平均每局%.2f轮。" % (game_times, min_times, avg_times)
+print"你一共玩了%d次，最快用了%d轮，%d秒，平均每局%.2f轮。" % (game_times, min_times, used_time, avg_times)
 # 存档分析
 
 random_num = randint(1, 1000)
 print "在1到1000之间猜一个数字吧："
+timeStart = time.time()
 guess = input(">>")
 timer = 0
 while guess != random_num:
@@ -45,7 +48,11 @@ while guess != random_num:
         timer += 1
     print "\n再试试？"
     guess = input(">>")
-print "BINGO！你用了%d轮猜到这个数字！" % timer
+
+timeEnd = time.time()
+used_time = timeEnd-timeStart
+print "BINGO！你用了%d轮,%d秒猜到这个数字！" % timer, used_time
+
 # 游戏主体
 
 game_times += 1
@@ -54,9 +61,9 @@ if min_times == 0 or timer < min_times:
     min_times = timer
 avg_times = avg(total_times, game_times)
 
-print"你一共玩了%d次，最快用了%d轮，平均每局%.2f轮。" % (game_times, min_times, avg_times)
+print"你一共玩了%d次，最快用了%d轮，%秒，平均每局%.2f轮。" % (game_times, min_times, used_time,  avg_times)
 
-scores[name] = [str(game_times), str(min_times), str(total_times)]
+scores[name] = [str(game_times), str(min_times), str(total_times), str(used_time)]
 result = ""
 for n in scores:
     line = n + " " + " ".join(scores[n]) + "\n"
